@@ -9,6 +9,8 @@ import tempfile
 from fastrunner.utils import loader
 EXEC = sys.executable
 
+if 'uwsgi' in EXEC:
+    EXEC = os.path.join(os.path.dirname(EXEC), 'python')
 
 class DebugCode(object):
 
