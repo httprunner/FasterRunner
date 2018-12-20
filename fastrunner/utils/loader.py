@@ -107,6 +107,8 @@ class FileLoader(object):
         }
 
         sys.path.insert(0, file_path)
+        if "debugtalk" in sys.modules:
+            sys.modules.pop('debugtalk')
         module = importlib.import_module("debugtalk")
         # 修复重载bug
         importlib.reload(module)
