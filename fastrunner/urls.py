@@ -90,6 +90,17 @@ urlpatterns = [
         "get": "all"
     })),
 
+    path('variables/', config.VariablesView.as_view({
+        "post": "add",
+        "get": "list",
+        "delete": "delete"
+    })),
+
+    path('variables/<int:pk>/', config.VariablesView.as_view({
+        "delete": "delete",
+        "patch": "update"
+    })),
+
     # run api
     path('run_api_pk/<int:pk>/', run.run_api_pk),
     path('run_api_tree/', run.run_api_tree),
@@ -102,10 +113,13 @@ urlpatterns = [
     path('run_suite_tree/', run.run_suite_tree),
 
     # 报告地址
-    path('report/', report.ReportView.as_view({
+    path('reports/', report.ReportView.as_view({
         "get": "list"
     })),
 
-    path('report/<int:pk>/', report.ReportView.as_view({"get": "look"}))
+    path('reports/<int:pk>/', report.ReportView.as_view({
+        "delete": "delete",
+        "get": "look"
+    })),
 
 ]

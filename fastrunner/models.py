@@ -13,7 +13,7 @@ class Project(BaseTable):
         verbose_name = "项目信息"
         db_table = "Project"
 
-    name = models.CharField("项目名称", unique=True, null=False, max_length=50)
+    name = models.CharField("项目名称", unique=True, null=False, max_length=100)
     desc = models.CharField("简要介绍", max_length=100, null=False)
     responsible = models.CharField("创建人", max_length=20, null=False)
 
@@ -79,7 +79,7 @@ class API(BaseTable):
 
     name = models.CharField("接口名称", null=False, max_length=100)
     body = models.TextField("主体信息", null=False)
-    url = models.CharField("请求地址", null=False, max_length=100)
+    url = models.CharField("请求地址", null=False, max_length=200)
     method = models.CharField("请求方式", null=False, max_length=10)
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     relation = models.IntegerField("节点id", null=False)
@@ -111,7 +111,7 @@ class CaseStep(BaseTable):
 
     name = models.CharField("用例名称", null=False, max_length=100)
     body = models.TextField("主体信息", null=False)
-    url = models.CharField("请求地址", null=False, max_length=100)
+    url = models.CharField("请求地址", null=False, max_length=200)
     method = models.CharField("请求方式", null=False, max_length=10)
     case = models.ForeignKey(Case, on_delete=models.CASCADE)
     step = models.IntegerField("顺序", null=False)
@@ -142,6 +142,20 @@ class DataBase(BaseTable):
     desc = models.CharField("描述", max_length=50, null=False)
 
 
+class Variables(BaseTable):
+    """
+    全局变量
+    """
+
+    class Meta:
+        verbose_name = "全局变量"
+        db_table = "Variables"
+
+    key = models.CharField(null=False, max_length=100)
+    value = models.CharField(null=False, max_length=1024)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+
+
 class FileBinary(models.Model):
     """
     二进制文件流
@@ -161,9 +175,9 @@ class Report(BaseTable):
     报告存储
     """
     report_type = (
-        (1, "调试用例报告"),
-        (2, "异步任务报告"),
-        (3, "定时任务报告")
+        (1, "调试"),
+        (2, "异步"),
+        (3, "定时")
     )
 
     class Meta:
