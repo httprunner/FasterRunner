@@ -106,11 +106,11 @@ docker-compose up -d
 docker exec -it fastrunner容器id /bin/sh #进入容器内部
 
 # make migrations for fastuser、fastrunner
-python manage.py makemigrations fastrunner fastuser
+python3 manage.py makemigrations fastrunner fastuser
 
 # migrate for database
-python manage.py migrate fastrunner
-python manage.py migrate fastuser
+python3 manage.py migrate fastrunner
+python3 manage.py migrate fastuser
 ```
 ------
 
